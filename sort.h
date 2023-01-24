@@ -21,7 +21,10 @@ typedef struct listint_s
 
 
 /* Function prototypes */
+void swap(int *arr, int idx1, int idx2);
+listint_t *create_listint(const int *array, size_t size);
 void bubble_sort(int *array, size_t size);
+void swap_list(listint_t *pn, listint_t *temp, listint_t *nxt, listint_t **h);
 void print_array(const int *array, size_t size);
 void print_list(const listint_t *list);
 void insertion_sort_list(listint_t **list);

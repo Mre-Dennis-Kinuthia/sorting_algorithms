@@ -1,43 +1,59 @@
 #include "sort.h"
 
+/**
+ * insertion_sort_list - sorts list with insertion sort
+ * @list: input list to sort
+ */
 void insertion_sort_list(listint_t **list)
 {
-    listint_t *current = *list;
-    listint_t *previous;
-    int best_case = 1; 
+    listint_t *temp, *pn, *nxt;
 
-    while (current)
+    if (list && *list && (*list)->next)
     {
-        previous = current;
-        current = current->next;
+        temp = (*list)->next;
+        pn = temp->prev;
+        nxt = temp->next;
 
-        while (previous->prev && previous->n < previous->prev->n)
+        while (temp)
         {
-            best_case = 0;
-            previous->prev->next = previous->next;
-            if (previous->next)
-                previous->next->prev = previous->prev;
-            previous->next = previous->prev;
-            previous->prev = previous->prev->prev;
-            previous->next->prev = previous;
-            if (previous->prev)
-                previous->prev->next = previous;
-            else
-                *list = previous;
-            print_list(*list);
+            if (temp->n < pn->n)
+            {
+                swap_list(pn, temp, nxt, list);
+            }
+            temp = nxt;
+            if (temp)
+            {
+                nxt = temp->next;
+                pn = temp->prev;
+            }
         }
     }
+}
 
-    if (best_case)
+/**
+ * swap_list - swaps the position of two nodes in a linked list
+ * @pn: previous node
+ * @temp: temp
+ * @nxt: next node
+ * @h: head of list
+ */
+void swap_list(listint_t *pn, listint_t *temp, listint_t *nxt, listint_t **h)
+{
+
+    while (pn && temp->n < pn->n)
     {
-        printf("The list is already sorted in ascending order.\n");
-    }
-    else if (previous->prev == NULL)
-    {
-        printf("The list is sorted in descending order.\n");
-    }
-    else
-    {
-        printf("The list is sorted in average case.\n");
+        if (nxt)
+            nxt->prev = pn;
+        temp->next = pn;
+        temp->prev = pn->prev;
+        if (pn->prev)
+            (pn->prev)->next = temp;
+        pn->prev = temp;
+        pn->next = nxt;
+        nxt = pn;
+        pn = temp->prev;
+        if ((*h)->prev)
+            *h = (*h)->prev;
+        print_list(*h);
     }
 }
