@@ -1,0 +1,5 @@
+./deploy.sh
+0-main.c
+1-main.c
+./insertion
+./bubble
