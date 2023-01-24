@@ -7,12 +7,14 @@
  * ascending order using the Bubble sort algorithm
  * @array: array of integers
  * @size: size of array
+ *
+ * Return: nothing
  **/
 
 void bubble_sort(int *array, size_t size)
 {
-    int temp;
     size_t i, j ;
+    int temp = 0;
     for(i = 0; i < size; i++)
     {
         for (j = 0; j < size - 1; j++)
